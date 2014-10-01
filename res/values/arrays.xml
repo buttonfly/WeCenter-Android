@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="item_title">
+        <item>首页</item>
+        <item>发现</item>
+        <item>关注</item>
+        <item>提问</item>
+        <item>设置</item>
+    </string-array>
+
+    <integer-array name="item_icon_res">
+        <item>1</item>
+        <item>@drawable/drawer_home_normal</item>
+        <item>@drawable/drawer_explore_normal</item>
+        <item>@drawable/drawer_follow_normal</item>
+        <item>@drawable/drawer_ask_normal</item>
+        <item>@drawable/drawer_setting_normal</item>
+    </integer-array>
+
+</resources>

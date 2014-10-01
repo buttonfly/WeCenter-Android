@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".LaunchActivity"
+    android:background="@drawable/ic_bg">
+    <ImageView
+        android:id="@+id/laucnch_iv_logo"
+        android:layout_width="155dp"
+        android:layout_height="90dp"
+        android:src="@drawable/ic_welcome"
+        android:layout_margin="50dp"
+        android:layout_centerHorizontal="true"/>
+<LinearLayout
+    android:clickable="false"
+    android:id="@+id/login_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/launch_btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="@string/register"
+        android:textColor="@color/launch_btn_text"
+        android:background="@drawable/launch_btn_register_bg"
+        android:layout_marginBottom="15dp"
+        />
+    <Button
+        android:id="@+id/launch_btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="@string/login"
+        android:textColor="@color/launch_btn_text"
+        android:background="@drawable/launch_btn_login_bg"
+        android:layout_marginBottom="18dp"
+        />
+    <TextView
+        android:id="@+id/launch_tv_visit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/launch_et_visit"
+        android:text="@string/visit"
+        android:layout_marginBottom="30dp"
+        android:clickable="true"
+        />
+</LinearLayout>
+
+</RelativeLayout>

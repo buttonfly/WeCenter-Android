@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">知问</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="name">用户名</string>
+    <string name="password">密码</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="visit">随便看看</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="register_new">注册账号</string>
+    <string name="email">邮箱</string>
+    <string name="account">邮箱/用户名</string>
+    <string name="home">首页</string>
+    <string name="explore">探索</string>
+    <string name="recommend">推荐</string>
+    <string name="follow">关注</string>
+    <string name="ask">提问</string>
+    <string name="setting">设置</string>
+    <string name="collect">收藏</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+
+    <string-array name="drawer_list_string_logined">
+        <item>首页</item>
+        <item>发现</item>
+        <item>关注</item>
+        <item>提问</item>
+        <item>设置</item>
+    </string-array>
+    <string-array name="drawer_list_string_no_login">
+        <item>登录</item>
+        <item>注册</item>
+        <item>发现</item>
+    </string-array>
+
+    <string name="drawer_login">饭饭登录</string>
+    <string name="net_break">网络错误!</string>
+    <string name="net_notconnect">没有网络耶!</string>
+    <string name="login_wrong">暂时无法修改头像!</string>
+    <string name="get_user_info">获取用户信息失败，请重试!</string>
+    <string name="default_number">0</string>
+    <string name="i_follow_topics">关注的话题</string>
+    <string name="i_follow_people">我关注的人</string>
+    <string name="follow_i_people">关注我的人</string>
+    <string name="follow_number">关注</string>
+    <string name="replay">回复</string>
+    <string name="asking">发问</string>
+    <string name="article">文章</string>
+    <string name="logout">退出我的账号</string>
+    <string name="introduce">介绍</string>
+    <string name="feedback">意见反馈</string>
+    <string name="about_zhiwen">关于知问</string>
+    <string name="about_us">联系我们</string>
+    <string name="versions">版本号：1.0.0</string>
+
+</resources>

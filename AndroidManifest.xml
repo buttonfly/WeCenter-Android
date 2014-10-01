@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.iflab.wc"
+    android:versionCode="1"
+    android:versionName="1.0.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+    <!-- 权限配置 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <application
+        android:name="org.iflab.wc.app.WecenterApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_logo"
+        android:label="@string/app_name"
+        android:theme="@style/CustomActionBarTheme" >
+        <activity
+            android:name=".ui.LaunchActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.LoginActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".ui.RegisterActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity android:name=".ui.MainActivity" >
+        </activity>
+        <activity android:name=".ui.AboutActivity" >
+        </activity>
+          <activity android:name=".ui.ConnectUsActivity" >
+        </activity>
+        <activity android:name=".topic.TopicDetailFragmentActivity" >
+        </activity>
+        <activity android:name="org.iflab.wc.follow.FollowActivity" >
+        </activity>
+        <activity android:name=".userinfo.UserInfoShowActivity" >
+        </activity>
+        <activity
+            android:name=".userinfo.UserInfoEditActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+        <activity android:name=".topic.TopicFragmentActivity" >
+        </activity>
+        <activity
+            android:name=".common.ShowPic"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".asking.QuestionFragmentActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".detail.question.QuestionDetailActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".found.Found"
+            android:label="@string/app_name" >
+        </activity>
+        <activity android:name=".detail.essay.EssayDetailActivity" >
+        </activity>
+        <activity android:name=".detail.question.AnswerActivity" >
+        </activity>
+        <activity android:name=".detail.question.CommentListActivity" >
+        </activity>
+        <activity
+            android:name=".detail.question.WriteAnswerActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" >
+        </activity>
+        <activity android:name=".asking.AskingFragmentActivity" >
+        </activity>
+        <activity android:name=".topic.BestAnswersActivity" >
+        </activity>
+        <activity android:name=".detail.question.TopicAboutActivity" >
+        </activity>
+        <activity android:name=".userinfo.ArticleActivity" >
+        </activity>
+        <activity android:name=".userinfo.MyAnswerActivity" >
+        </activity>
+        <activity android:name="org.iflab.wc.follow.TestAttention" >
+        </activity>
+        <activity android:name=".detail.essay.EssayCommentActivity" >
+        </activity>
+    </application>
+
+</manifest>
