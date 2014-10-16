@@ -1,6 +1,5 @@
 package org.iflab.wc.ui;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,15 +18,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.view.View.OnFocusChangeListener;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
+
 import org.apache.http.Header;
 import org.iflab.wc.R;
+import org.iflab.wc.app.BaseActivity;
 import org.iflab.wc.app.WecenterApi;
 import org.iflab.wc.app.WecenterApplication;
-import org.iflab.wc.app.WecenterManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +38,7 @@ import org.json.JSONObject;
  * @author: Timor(www.LogcatBlog.com)
  * @created: 2014-09-15
  */
-public class RegisterActivity extends Activity implements OnClickListener {
+public class RegisterActivity extends BaseActivity implements OnClickListener {
 	private static String TAG = "RegisterActivity";
 	private Button register_btn_register;
 	private ProgressDialog pbDialog;
@@ -50,7 +51,6 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-		WecenterManager.getInstance().pushOneActivity(RegisterActivity.this);
 		initView();
 	}
 
@@ -315,7 +315,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		// TODO 加密数据存放
 		WecenterApplication.setUid(uid);
 		WecenterApplication.setUserName(userName);
-		WecenterApplication.setIsLogin(true);
+		WecenterApplication.setIsLogined(true);
 		SharedPreferences sharedPreferences = getSharedPreferences("userData",
 				MODE_PRIVATE);
 		SharedPreferences.Editor SPeditor = sharedPreferences.edit();

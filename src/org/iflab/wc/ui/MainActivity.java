@@ -1,10 +1,9 @@
 package org.iflab.wc.ui;
 
 import org.iflab.wc.R;
+import org.iflab.wc.app.ActivityCollector;
 import org.iflab.wc.app.WecenterApplication;
-import org.iflab.wc.app.WecenterManager;
 import org.iflab.wc.asking.AskingFragmentActivity;
-import org.iflab.wc.common.GlobalVariables;
 import org.iflab.wc.fragment.ExploreFragment;
 import org.iflab.wc.fragment.FollowFrament;
 import org.iflab.wc.fragment.HomeFragment;
@@ -12,6 +11,7 @@ import org.iflab.wc.fragment.NavigationDrawerFragment;
 import org.iflab.wc.fragment.SettingFragment;
 import org.iflab.wc.topic.TopicFragment;
 import org.iflab.wc.userinfo.UserInfoShowActivity;
+
 import android.support.v4.app.FragmentTransaction;
 import android.app.ActionBar;
 import android.content.Context;
@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -31,9 +32,12 @@ import android.widget.Toast;
  */
 public class MainActivity extends FragmentActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
+
 	public static NavigationDrawerFragment mNavigationDrawerFragment;
 	private CharSequence mTitle;
+
 	private long exitTime = 0;
+
 	private HomeFragment homeFragment;
 	private ExploreFragment exploreFragment;
 	private FollowFrament followFragment;
@@ -44,12 +48,18 @@ public class MainActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		WecenterManager.getInstance().pushOneActivity(MainActivity.this);
+		ActivityCollector.addActivity(this);
+		Log.i("BaseActivity", "MainActivity");
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+		init();
+	}
+
+	private void init() {
+		// TODO Auto-generated method stub
 		ActionBar actionBar = getActionBar();
 		actionBar.setIcon(null);
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -69,7 +79,7 @@ public class MainActivity extends FragmentActivity implements
 		hideFragments(transaction);
 		switch (position) {
 		case 0:
-			if (!WecenterApplication.isIsLogin()) {
+			if (!WecenterApplication.isIsLogined()) {
 				LoginActivity.actionStart(MainActivity.this);
 			} else {
 				UserInfoShowActivity.actionStar(MainActivity.this,
@@ -77,7 +87,7 @@ public class MainActivity extends FragmentActivity implements
 			}
 			break;
 		case 1:
-			if (!WecenterApplication.isIsLogin()) {
+			if (!WecenterApplication.isIsLogined()) {
 				RegisterActivity.actionStart(MainActivity.this);
 			} else {
 				if (homeFragment == null) {
@@ -120,6 +130,13 @@ public class MainActivity extends FragmentActivity implements
 		default:
 			break;
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		ActivityCollector.removeActivity(this);
 	}
 
 	/**
@@ -174,7 +191,7 @@ public class MainActivity extends FragmentActivity implements
 			// MainActivity.this);
 			// fileUtils.deleteFile();
 			// imageFileUtils.deleteFile();
-			WecenterManager.getInstance().finishAllActivity();
+			ActivityCollector.finishAll();
 			finish();
 		}
 	}

@@ -97,7 +97,7 @@ public class NavigationDrawerFragment extends Fragment {
 	 */
 	private void handleView() {
 		// TODO Auto-generated method stub
-		if (WecenterApplication.isIsLogin()) {
+		if (WecenterApplication.isIsLogined()) {
 			String[] itemTitle = getResources().getStringArray(
 					R.array.drawer_list_string_logined);
 			int[] itemIconRes = { R.drawable.drawer_home_normal,

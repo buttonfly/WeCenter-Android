@@ -1,9 +1,9 @@
 package org.iflab.wc.userinfo;
 
 import org.apache.http.Header;
+import org.iflab.wc.app.BaseActivity;
 import org.iflab.wc.app.WecenterApi;
 import org.iflab.wc.app.WecenterApplication;
-import org.iflab.wc.app.WecenterManager;
 import org.iflab.wc.common.GlobalVariables;
 import org.iflab.wc.common.TipsToast;
 import org.iflab.wc.follow.FollowActivity;
@@ -13,12 +13,13 @@ import org.iflab.wc.ui.MainActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.iflab.wc.R;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
+
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,7 +36,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class UserInfoShowActivity extends Activity implements OnClickListener {
+public class UserInfoShowActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = "UserInfoShowActivity";
 
 	private int haveFrocus = NO;
@@ -74,8 +75,6 @@ public class UserInfoShowActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_information_show);
-		WecenterManager.getInstance()
-				.pushOneActivity(UserInfoShowActivity.this);
 		Intent intent = this.getIntent();
 		uid = intent.getIntExtra("uid", 0);
 		initView();
@@ -246,7 +245,7 @@ public class UserInfoShowActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		// 清楚储存的cookie，用户数据并跳转
+		// 清除储存的cookie，用户数据并跳转
 		case R.id.ll_logout:
 			SharedPreferences mSharedPreferences = this.getSharedPreferences(
 					"userData", MODE_PRIVATE);
@@ -255,7 +254,7 @@ public class UserInfoShowActivity extends Activity implements OnClickListener {
 			SPeditor.remove("userName");
 			SPeditor.remove("password");
 			SPeditor.commit();
-			WecenterApplication.setIsLogin(false);
+			WecenterApplication.setIsLogined(false);
 			WecenterApplication.setUid(0);
 			WecenterApplication.setAvatarUrl("");
 			WecenterApplication.setUserName("");

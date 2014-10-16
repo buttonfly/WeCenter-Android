@@ -1,6 +1,6 @@
 package org.iflab.wc.ui;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,34 +20,35 @@ import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 import org.iflab.wc.R;
+import org.iflab.wc.app.BaseActivity;
 import org.iflab.wc.app.WecenterApi;
 import org.iflab.wc.app.WecenterApplication;
-import org.iflab.wc.app.WecenterManager;
 import org.iflab.wc.ui.RegisterActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * 应用启动 已有用户信息则异步登录并延时跳转至MainActivity 没有则显示登录，注册按钮
+ * 应用启动判断是否已有用户信息，如果有则异步登录并延时跳转至MainActivity 没有则显示登录，注册按钮让用户登录或注册。
  * 
  * @author: Timor(www.LogcatBlog.com)
  * @created: 2014-09-15
  */
-public class LaunchActivity extends Activity implements View.OnClickListener {
+public class LaunchActivity extends BaseActivity implements
+		View.OnClickListener {
 	private static final String TAG = "LaunchActivity";
 	private Button btn_login, btn_register;
 	private TextView tv_visit;
 	private LinearLayout login_ll;
 	private AsyncHttpClient client;
-	private Long postTime;
+	private Boolean loginErr;// 记录储存的用户信息是否登录出错
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launch);
-		WecenterManager.getInstance().pushOneActivity(LaunchActivity.this);
+
 		initView();
-		handleView();
+		asyncLogin();
 	}
 
 	private void initView() {
@@ -65,36 +66,38 @@ public class LaunchActivity extends Activity implements View.OnClickListener {
 	}
 
 	/**
-	 * 根据情况处理View的隐藏和显示
+	 * 用本地存储的用户数据异步登录。如果数据为空则显示登录注册，否则直接异步登录。
 	 */
-	private void handleView() {
+	private void asyncLogin() {
 		// TODO 解密数据
 		// 如果都不为空则延时切换到MainActivity。发送数据到服务端验证
 		String userName = WecenterApplication.getUserName();
 		String password = WecenterApplication.getPassword();
-		Log.i(TAG, "userName：" + userName);
-		Log.i(TAG, "password：" + password);
 		if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)) {
+			loginErr = false;
+			WecenterApplication.setIsLogined(true);
 			login_ll.setVisibility(View.GONE);
 			login(userName, password);
-			postTime = System.currentTimeMillis();
 			// 新创建的线程以延时跳转
-			// new Thread() {
-			// @Override
-			// public void run() {
-			// try {
-			// Thread.sleep(1000);
-			// } catch (InterruptedException e) {
-			// e.printStackTrace();
-			// } finally {
-			// MainActivity.actionStar(LaunchActivity.this);
-			// finish();
-			// // TODO 添加动画效果
-			// }
-			// }
-			// }.start();
+			new Thread() {
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					} finally {
+						if (!loginErr) {
+							MainActivity.actionStar(LaunchActivity.this);
+							finish();
+							// TODO 添加动画效果
+						}
+
+					}
+				}
+			}.start();
 		} else {
-			// 密码或账号为空则让用户输入
+			WecenterApplication.setIsLogined(false);
 			login_ll.setVisibility(View.VISIBLE);
 			Animation animation = AnimationUtils.loadAnimation(this,
 					R.anim.launch_ll_fade_in);
@@ -109,22 +112,16 @@ public class LaunchActivity extends Activity implements View.OnClickListener {
 	 * @param password
 	 */
 	private void login(String userName, String password) {
-		// POST发送信息
+		// 如果有网络则POST发送信息，否则通知主页面稍候登录
 		RequestParams params = new RequestParams();
 		params.put("user_name", userName);
 		params.put("password", password);
 		String url = WecenterApi.LOGIN;
-		Log.d(TAG, "url：" + url);
 		if (WecenterApplication.isNetworkConnected(this)) {
 			postData(url, params);
 		} else {
 			// TODO 开启离线模式
 			WecenterApplication.setIsloginErr(true);
-			WecenterApplication.setIsLogin(false);
-			WecenterApplication.setLoginErrInfo("NetBreak");
-			MainActivity.actionStar(this);
-			finish();
-			// TODO 添加动画效果
 		}
 	}
 
@@ -154,12 +151,7 @@ public class LaunchActivity extends Activity implements View.OnClickListener {
 			public void onFailure(int arg0, Header[] arg1,
 					byte[] responseContent, Throwable arg3) {
 				// TODO Auto-generated method stub
-				// 用存储的信息异步登录有错误，在MainActivity会读取此数据判断并处理
 				WecenterApplication.setIsloginErr(true);
-				WecenterApplication.setIsLogin(false);
-				WecenterApplication.setLoginErrInfo("NetBreak");
-				MainActivity.actionStar(LaunchActivity.this);
-				finish();
 			}
 		});
 	}
@@ -175,20 +167,21 @@ public class LaunchActivity extends Activity implements View.OnClickListener {
 			JSONObject jsonObject = new JSONObject(reponseResult);
 			int errno = jsonObject.getInt("errno");
 			String err = jsonObject.getString("err");
-			// 成功时errno为1，失败为-1
+			// 成功时errno为1，失败为-1。err为出错信息
 			if (errno == 1) {
 				JSONObject rsm = jsonObject.getJSONObject("rsm");
 				int uid = rsm.getInt("uid");
 				String userName = rsm.getString("user_name");
 				String avatarUrl = rsm.getString("avatar_file");
 				saveLoginData(uid, userName, avatarUrl);
-				starMain();
 			} else {
-				WecenterApplication.setIsloginErr(true);
-				WecenterApplication.setLoginErrInfo(err);
-				WecenterApplication.setIsLogin(false);
-				MainActivity.actionStar(LaunchActivity.this);
-				finish();
+				loginErr = true;
+				WecenterApplication.setErrInfo(err);// 保存err到Applicant供其他Activity使用
+				Intent intent = new Intent();
+				intent.putExtra("data", err);
+				intent.setAction("org.iflab.wc.broadcast.LOGINERR");
+				sendBroadcast(intent);
+				Log.i(TAG, "sendBroadcast");
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -199,40 +192,11 @@ public class LaunchActivity extends Activity implements View.OnClickListener {
 	}
 
 	/**
-	 * 延时跳转至MainActivity，以保证动画播放完毕。
-	 */
-	private void starMain() {
-		// TODO Auto-generated method stub
-		if (System.currentTimeMillis() - postTime < 1000) {
-			// 新创建的线程以延时跳转
-			new Thread() {
-				@Override
-				public void run() {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					} finally {
-						MainActivity.actionStar(LaunchActivity.this);
-						finish();
-						// TODO 添加动画效果
-					}
-				}
-			}.start();
-		} else {
-			MainActivity.actionStar(LaunchActivity.this);
-			finish();
-		}
-
-	}
-
-	/**
 	 * 保存登录成功的用户数据
 	 */
 	private void saveLoginData(int uid, String userName, String avatarUrl) {
 		// TODO Auto-generated method stub
 		// TODO 加密数据存放
-		WecenterApplication.setIsLogin(true);
 		WecenterApplication.setUid(uid);
 		WecenterApplication.setUserName(userName);
 		WecenterApplication.setAvatarUrl(avatarUrl);

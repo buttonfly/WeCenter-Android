@@ -155,10 +155,8 @@ public class HomeFragment extends Fragment {
 						Throwable arg3) {
 					// TODO Auto-generated method stub
 					// 请求失败后提示用户
-					String errs = new String(arg2);
-					Log.i(TAG, errs);
 					Toast.makeText((MainActivity) getActivity(),
-							errs + " 网络有点不好哦，请重试！", Toast.LENGTH_LONG).show();
+							" 网络有点不好哦，请重试！", Toast.LENGTH_LONG).show();
 					mPullRefreshListView.onRefreshComplete();
 				}
 

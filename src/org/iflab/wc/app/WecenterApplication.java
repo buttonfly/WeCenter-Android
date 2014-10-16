@@ -13,22 +13,32 @@ import android.net.NetworkInfo;
  * @created: 2014-09-17
  */
 public class WecenterApplication extends Application {
-	private static boolean isLogin = false;
 	// 储存登录后获取到的Uid 用户名(昵称)和 头像url；
 	private static int uid = 0;
+	private static int focusTopic = 1;
+	
 	private static String userName = "";
 	private static String avatarUrl = "";
 	private static String password = "";
-	// 用于记录启动时用存储的信息异步登录是否有错误，在MainActivity会读取此数据判断并处理
-	private static String loginErrInfo = "";
-	private static boolean isloginErr = false;
-	private static int focusTopic = 1;
+	
+	private static String errInfo = "";
+	
+	private static boolean isloginErr = false;//记录登录时是否网络出错
+	private static boolean isLogined = false;//记录是否有储存登录的信息
 
 	@Override
 	public void onCreate() {
 		// TODO 应用初始化
 		super.onCreate();
 		getDatd();
+	}
+
+	public static String getErrInfo() {
+		return errInfo;
+	}
+
+	public static void setErrInfo(String errInfo) {
+		WecenterApplication.errInfo = errInfo;
 	}
 
 	/**
@@ -45,13 +55,6 @@ public class WecenterApplication extends Application {
 		WecenterApplication.setUid(uid);
 	}
 
-	public static String getLoginErrInfo() {
-		return loginErrInfo;
-	}
-
-	public static void setLoginErrInfo(String loginErrInfo) {
-		WecenterApplication.loginErrInfo = loginErrInfo;
-	}
 
 	public static int getfocusTopic() {
 		return focusTopic;
@@ -77,8 +80,8 @@ public class WecenterApplication extends Application {
 		WecenterApplication.uid = uid;
 	}
 
-	public static void setIsLogin(boolean isLogin) {
-		WecenterApplication.isLogin = isLogin;
+	public static void setIsLogined(boolean isLogin) {
+		WecenterApplication.isLogined = isLogin;
 	}
 
 	public static void setAvatarUrl(String avatarUrl) {
@@ -89,8 +92,8 @@ public class WecenterApplication extends Application {
 		return uid;
 	}
 
-	public static boolean isIsLogin() {
-		return isLogin;
+	public static boolean isIsLogined() {
+		return isLogined;
 	}
 
 	public static String getUserName() {

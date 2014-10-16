@@ -1,6 +1,5 @@
 package org.iflab.wc.ui;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,13 +28,13 @@ import android.view.View.OnFocusChangeListener;
 
 import org.apache.http.Header;
 import org.iflab.wc.R;
+import org.iflab.wc.app.BaseActivity;
 import org.iflab.wc.app.WecenterApi;
 import org.iflab.wc.app.WecenterApplication;
-import org.iflab.wc.app.WecenterManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends Activity implements OnClickListener {
+public class LoginActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = "LoginActivity";
 	private AsyncHttpClient client;
 	private ProgressDialog pbDialog;
@@ -48,7 +47,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		WecenterManager.getInstance().pushOneActivity(LoginActivity.this);
 		initView();
 		handView();
 	}
@@ -206,9 +204,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 		String url = WecenterApi.LOGIN;
 		if (WecenterApplication.isNetworkConnected(this)) {
 			postData(url, params);
-			Log.d(TAG, "LoginUrl" + url);
-			Log.d(TAG, "user_name" + userName);
-			Log.d(TAG, "password" + password);
 		} else {
 			Toast.makeText(this, "没有网络，请设置！", Toast.LENGTH_SHORT).show();
 		}
@@ -264,7 +259,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			String password) {
 		// TODO Auto-generated method stub
 		// TODO 加密数据存放
-		WecenterApplication.setIsLogin(true);
+		WecenterApplication.setIsLogined(true);
 		WecenterApplication.setUid(uid);
 		WecenterApplication.setUserName(userName);
 		WecenterApplication.setAvatarUrl(avatarUrl);
@@ -326,7 +321,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 				// TODO Auto-generated method stub
 				if (keyCode == KeyEvent.KEYCODE_BACK) {
 					client.cancelAllRequests(true);
-					WecenterApplication.setIsLogin(false);
 					pbDialog.dismiss();
 				}
 				return false;

@@ -34,6 +34,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name="org.iflab.wc.receiver.Receiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="org.iflab.wc.broadcast.LOGINERR" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
@@ -46,7 +55,7 @@
         </activity>
         <activity android:name=".ui.AboutActivity" >
         </activity>
-          <activity android:name=".ui.ConnectUsActivity" >
+        <activity android:name=".ui.ConnectUsActivity" >
         </activity>
         <activity android:name=".topic.TopicDetailFragmentActivity" >
         </activity>
