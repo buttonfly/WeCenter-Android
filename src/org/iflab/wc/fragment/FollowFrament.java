@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.http.Header;
 import org.iflab.wc.adapter.FollowAdapter;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.common.GlobalVariables;
 import org.iflab.wc.model.FollowModel;
 import org.iflab.wc.topic.imageload.ImageDownLoader;
@@ -63,9 +63,9 @@ public class FollowFrament extends Fragment {
 		String UserOrMe = intent.getStringExtra("userorme");
 		uid = intent.getStringExtra("uid");
 		if (UserOrMe.equals(GlobalVariables.ATTENEION_ME)) {
-			url = WecenterApi.ATTENTIONME;
+			url = WcApis.ATTENTIONME;
 		}else {
-			url = WecenterApi.ATTENTIONUSER;
+			url = WcApis.ATTENTIONUSER;
 		}
 		attentionUserModels = new ArrayList<FollowModel>();
 		imageDownLoader = new ImageDownLoader(getActivity());
@@ -135,7 +135,7 @@ public class FollowFrament extends Fragment {
 			String mImageUrl = attentionUserModels.get(i).getUserImageUrl();
 			//System.out.println(mImageUrl);
 			if (!mImageUrl.equals("") ) {
-				mImageUrl =WecenterApi.IMAGE_BASE_URL+mImageUrl;
+				mImageUrl =WcApis.IMAGE_BASE_URL+mImageUrl;
 				//System.err.println(mImageUrl);
 				final ImageView mImageView = (ImageView) listView
 						.findViewWithTag(mImageUrl);

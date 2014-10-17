@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.http.Header;
 import org.apache.http.client.CookieStore;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.topic.imageload.ImageDownLoader;
 import org.iflab.wc.topic.imageload.ImageDownLoader.onImageLoaderListener;
 import org.json.JSONArray;
@@ -184,7 +184,7 @@ public class EssayCommentActivity extends Activity implements
 	}
 
 	private void dozan(int id, int value) {
-		String url = WecenterApi.ARTICLE_VOTE;
+		String url = WcApis.ARTICLE_VOTE;
 		RequestParams params = new RequestParams();
 		params.put("type", "comment");
 		params.put("item_id", id);
@@ -236,7 +236,7 @@ public class EssayCommentActivity extends Activity implements
 	}
 
 	private void Getcom(String id) {
-		String url = WecenterApi.ARTICLE_COMMNET + id;
+		String url = WcApis.ARTICLE_COMMNET + id;
 		client.get(url, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -339,7 +339,7 @@ public class EssayCommentActivity extends Activity implements
 	}
 
 	private void postcom(RequestParams params) {
-		String url = WecenterApi.SAVE_COMMNET;
+		String url = WcApis.SAVE_COMMNET;
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -390,7 +390,7 @@ public class EssayCommentActivity extends Activity implements
 		for (int i = firstVisibleItem; i < firstVisibleItem + visibleItemCount; i++) {
 			String mImageUrl = comitems.get(i).getAvatarfile();
 			if (!mImageUrl.equals("")) {
-				mImageUrl = WecenterApi.USER_IMAGE_BASE + mImageUrl;
+				mImageUrl = WcApis.USER_IMAGE_BASE + mImageUrl;
 				final ImageView mImageView = (ImageView) comlist
 						.findViewWithTag(mImageUrl);
 				imageDownLoader.getBitmap(mImageUrl,

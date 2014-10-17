@@ -2,7 +2,7 @@ package org.iflab.wc.topic;
 
 import org.apache.http.Header;
 import org.iflab.wc.R;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.common.AsyncImageGet;
 import org.iflab.wc.common.FanfanSharedPreferences;
 import org.iflab.wc.common.GlobalVariables;
@@ -89,7 +89,7 @@ public class TopicDtailFirstFragment extends Fragment {
 		if (has_focus == 1) {
 			params.put("type", "cancel");
 		}
-		String url = WecenterApi.TOPIC_DETAIL_F;
+		String url = WcApis.TOPIC_DETAIL_F;
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -132,7 +132,7 @@ public class TopicDtailFirstFragment extends Fragment {
 		RequestParams params = new RequestParams();
 		params.put("uid", uid);
 		params.put("topic_id", topic_id);
-		String url =WecenterApi.TOPIC;
+		String url =WcApis.TOPIC;
 		client.get(url, params,
 				new AsyncHttpResponseHandler() {
 
@@ -162,7 +162,7 @@ public class TopicDtailFirstFragment extends Fragment {
 								topic_about_followers.setText(focus_count
 										+ "人关注");
 								if (!topic_pic.equals("")) {
-									(new AsyncImageGet(WecenterApi.IMAGE_BASE_URL
+									(new AsyncImageGet(WcApis.IMAGE_BASE_URL
 											+ topic_pic, imageView)).execute();
 								}
 								setTopicFollow();

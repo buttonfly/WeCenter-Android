@@ -19,7 +19,7 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
 import org.iflab.wc.R;
-import org.iflab.wc.app.WecenterApplication;
+import org.iflab.wc.app.WcApplication;
 
 public class AsyncFileUpLoad {
 	public String preview = null, errno, err;
@@ -40,7 +40,7 @@ public class AsyncFileUpLoad {
 		client = new AsyncHttpClient();
 		PersistentCookieStore mCookieStore = new PersistentCookieStore(context);
 		client.setCookieStore(mCookieStore);
-		if (WecenterApplication.isNetworkConnected(context)) {
+		if (WcApplication.isNetworkConnected(context)) {
 			// Login();
 			upLoad(callBack);
 		} else {

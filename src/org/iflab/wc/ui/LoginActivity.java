@@ -29,8 +29,8 @@ import android.view.View.OnFocusChangeListener;
 import org.apache.http.Header;
 import org.iflab.wc.R;
 import org.iflab.wc.app.BaseActivity;
-import org.iflab.wc.app.WecenterApi;
-import org.iflab.wc.app.WecenterApplication;
+import org.iflab.wc.app.WcApis;
+import org.iflab.wc.app.WcApplication;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -201,8 +201,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		RequestParams params = new RequestParams();
 		params.put("user_name", userName);
 		params.put("password", password);
-		String url = WecenterApi.LOGIN;
-		if (WecenterApplication.isNetworkConnected(this)) {
+		String url = WcApis.LOGIN;
+		if (WcApplication.isNetworkConnected(this)) {
 			postData(url, params);
 		} else {
 			Toast.makeText(this, "没有网络，请设置！", Toast.LENGTH_SHORT).show();
@@ -259,10 +259,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			String password) {
 		// TODO Auto-generated method stub
 		// TODO 加密数据存放
-		WecenterApplication.setIsLogined(true);
-		WecenterApplication.setUid(uid);
-		WecenterApplication.setUserName(userName);
-		WecenterApplication.setAvatarUrl(avatarUrl);
+		WcApplication.setIsLogined(true);
+		WcApplication.setUid(uid);
+		WcApplication.setUserName(userName);
+		WcApplication.setAvatarUrl(avatarUrl);
 		SharedPreferences mSharedPreferences = this.getSharedPreferences(
 				"userData", MODE_PRIVATE);
 		SharedPreferences.Editor SPeditor = mSharedPreferences.edit();

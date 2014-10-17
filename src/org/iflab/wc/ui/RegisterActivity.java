@@ -27,8 +27,8 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.iflab.wc.R;
 import org.iflab.wc.app.BaseActivity;
-import org.iflab.wc.app.WecenterApi;
-import org.iflab.wc.app.WecenterApplication;
+import org.iflab.wc.app.WcApis;
+import org.iflab.wc.app.WcApplication;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -230,8 +230,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		params.put("email", email);
 		params.put("user_name", userName);
 		params.put("password", password);
-		String url = WecenterApi.REGISTER;
-		if (WecenterApplication.isNetworkConnected(this)) {
+		String url = WcApis.REGISTER;
+		if (WcApplication.isNetworkConnected(this)) {
 			postData(url, params);
 		} else {
 			Toast.makeText(this, "没有网络请设置！", Toast.LENGTH_SHORT).show();
@@ -313,9 +313,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	private void saveData(String userName, String password, int uid) {
 		// TODO Auto-generated method stub
 		// TODO 加密数据存放
-		WecenterApplication.setUid(uid);
-		WecenterApplication.setUserName(userName);
-		WecenterApplication.setIsLogined(true);
+		WcApplication.setUid(uid);
+		WcApplication.setUserName(userName);
+		WcApplication.setIsLogined(true);
 		SharedPreferences sharedPreferences = getSharedPreferences("userData",
 				MODE_PRIVATE);
 		SharedPreferences.Editor SPeditor = sharedPreferences.edit();

@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.http.Header;
 import org.iflab.wc.R;
-import org.iflab.wc.app.WecenterApi;
-import org.iflab.wc.app.WecenterApplication;
+import org.iflab.wc.app.WcApis;
+import org.iflab.wc.app.WcApplication;
 import org.iflab.wc.common.GlobalVariables;
 import org.iflab.wc.topic.imageload.ImageDownLoader;
 import org.iflab.wc.topic.imageload.ImageDownLoader.onImageLoaderListener;
@@ -62,7 +62,7 @@ public class TopicFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.fragment_topic, container, false);
-		uid = WecenterApplication.getUid();
+		uid = WcApplication.getUid();
 		topicModels = new ArrayList<TopicModel>();
 		mImageDownLoader = new ImageDownLoader(getActivity());
 		footerLinearLayout = (LinearLayout) LayoutInflater.from(getActivity())
@@ -130,7 +130,7 @@ public class TopicFragment extends Fragment {
 				- 1; i++) {
 			String mImageUrl = topicModels.get(i).getImageUrl();
 			if (!mImageUrl.equals("")) {
-				mImageUrl = WecenterApi.IMAGE_BASE_URL + mImageUrl;
+				mImageUrl = WcApis.IMAGE_BASE_URL + mImageUrl;
 				final ImageView mImageView = (ImageView) listView
 						.findViewWithTag(mImageUrl);
 				mImageDownLoader.getBitmap(mImageUrl,
@@ -154,12 +154,12 @@ public class TopicFragment extends Fragment {
 
 	private void getTopicModels(int uid) {
 		RequestParams params = new RequestParams();
-		String url = WecenterApi.HOT_TOPIC;
+		String url = WcApis.HOT_TOPIC;
 		if (isFocus == GlobalVariables.FOCUS_TOPIC) {
 			params.put("uid", uid);
-			url = WecenterApi.FOCUS_TOPIC;
+			url = WcApis.FOCUS_TOPIC;
 		} else {
-			url = WecenterApi.HOT_TOPIC;
+			url = WcApis.HOT_TOPIC;
 		}
 		Log.i("Topic", "url：" + url);
 		params.put("page", currentPage);

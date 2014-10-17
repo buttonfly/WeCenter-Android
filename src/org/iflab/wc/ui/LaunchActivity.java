@@ -21,8 +21,8 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.iflab.wc.R;
 import org.iflab.wc.app.BaseActivity;
-import org.iflab.wc.app.WecenterApi;
-import org.iflab.wc.app.WecenterApplication;
+import org.iflab.wc.app.WcApis;
+import org.iflab.wc.app.WcApplication;
 import org.iflab.wc.ui.RegisterActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,11 +71,11 @@ public class LaunchActivity extends BaseActivity implements
 	private void asyncLogin() {
 		// TODO 解密数据
 		// 如果都不为空则延时切换到MainActivity。发送数据到服务端验证
-		String userName = WecenterApplication.getUserName();
-		String password = WecenterApplication.getPassword();
+		String userName = WcApplication.getUserName();
+		String password = WcApplication.getPassword();
 		if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)) {
 			loginErr = false;
-			WecenterApplication.setIsLogined(true);
+			WcApplication.setIsLogined(true);
 			login_ll.setVisibility(View.GONE);
 			login(userName, password);
 			// 新创建的线程以延时跳转
@@ -97,7 +97,7 @@ public class LaunchActivity extends BaseActivity implements
 				}
 			}.start();
 		} else {
-			WecenterApplication.setIsLogined(false);
+			WcApplication.setIsLogined(false);
 			login_ll.setVisibility(View.VISIBLE);
 			Animation animation = AnimationUtils.loadAnimation(this,
 					R.anim.launch_ll_fade_in);
@@ -116,12 +116,12 @@ public class LaunchActivity extends BaseActivity implements
 		RequestParams params = new RequestParams();
 		params.put("user_name", userName);
 		params.put("password", password);
-		String url = WecenterApi.LOGIN;
-		if (WecenterApplication.isNetworkConnected(this)) {
+		String url = WcApis.LOGIN;
+		if (WcApplication.isNetworkConnected(this)) {
 			postData(url, params);
 		} else {
 			// TODO 开启离线模式
-			WecenterApplication.setIsloginErr(true);
+			WcApplication.setIsloginErr(true);
 		}
 	}
 
@@ -151,7 +151,7 @@ public class LaunchActivity extends BaseActivity implements
 			public void onFailure(int arg0, Header[] arg1,
 					byte[] responseContent, Throwable arg3) {
 				// TODO Auto-generated method stub
-				WecenterApplication.setIsloginErr(true);
+				WcApplication.setIsloginErr(true);
 			}
 		});
 	}
@@ -176,7 +176,7 @@ public class LaunchActivity extends BaseActivity implements
 				saveLoginData(uid, userName, avatarUrl);
 			} else {
 				loginErr = true;
-				WecenterApplication.setErrInfo(err);// 保存err到Applicant供其他Activity使用
+				WcApplication.setErrInfo(err);// 保存err到Applicant供其他Activity使用
 				Intent intent = new Intent();
 				intent.putExtra("data", err);
 				intent.setAction("org.iflab.wc.broadcast.LOGINERR");
@@ -197,9 +197,9 @@ public class LaunchActivity extends BaseActivity implements
 	private void saveLoginData(int uid, String userName, String avatarUrl) {
 		// TODO Auto-generated method stub
 		// TODO 加密数据存放
-		WecenterApplication.setUid(uid);
-		WecenterApplication.setUserName(userName);
-		WecenterApplication.setAvatarUrl(avatarUrl);
+		WcApplication.setUid(uid);
+		WcApplication.setUserName(userName);
+		WcApplication.setAvatarUrl(avatarUrl);
 		SharedPreferences mSharedPreferences = this.getSharedPreferences(
 				"userData", MODE_PRIVATE);
 		SharedPreferences.Editor SPeditor = mSharedPreferences.edit();

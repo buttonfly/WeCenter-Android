@@ -12,7 +12,7 @@ import android.net.NetworkInfo;
  * @author: Timor(www.LogcatBlog.com)
  * @created: 2014-09-17
  */
-public class WecenterApplication extends Application {
+public class WcApplication extends Application {
 	// 储存登录后获取到的Uid 用户名(昵称)和 头像url；
 	private static int uid = 0;
 	private static int focusTopic = 1;
@@ -38,7 +38,7 @@ public class WecenterApplication extends Application {
 	}
 
 	public static void setErrInfo(String errInfo) {
-		WecenterApplication.errInfo = errInfo;
+		WcApplication.errInfo = errInfo;
 	}
 
 	/**
@@ -50,9 +50,9 @@ public class WecenterApplication extends Application {
 		int uid = sharedPreferences.getInt("uid", 0);
 		String userName = sharedPreferences.getString("userName", "");
 		String password = sharedPreferences.getString("password", "");
-		WecenterApplication.setPassword(password);
-		WecenterApplication.setUserName(userName);
-		WecenterApplication.setUid(uid);
+		WcApplication.setPassword(password);
+		WcApplication.setUserName(userName);
+		WcApplication.setUid(uid);
 	}
 
 
@@ -65,27 +65,27 @@ public class WecenterApplication extends Application {
 	}
 
 	public static void setIsloginErr(boolean isloginErr) {
-		WecenterApplication.isloginErr = isloginErr;
+		WcApplication.isloginErr = isloginErr;
 	}
 
 	public static void setPassword(String password) {
-		WecenterApplication.password = password;
+		WcApplication.password = password;
 	}
 
 	public static void setUserName(String userName) {
-		WecenterApplication.userName = userName;
+		WcApplication.userName = userName;
 	}
 
 	public static void setUid(int uid) {
-		WecenterApplication.uid = uid;
+		WcApplication.uid = uid;
 	}
 
 	public static void setIsLogined(boolean isLogin) {
-		WecenterApplication.isLogined = isLogin;
+		WcApplication.isLogined = isLogin;
 	}
 
 	public static void setAvatarUrl(String avatarUrl) {
-		WecenterApplication.avatarUrl = avatarUrl;
+		WcApplication.avatarUrl = avatarUrl;
 	}
 
 	public static int getUid() {

@@ -6,7 +6,7 @@ package org.iflab.wc.app;
  * @author: Timor(www.LogcatBlog.com)
  * @created: 2014-09-17
  */
-public class WecenterApi {
+public class WcApis {
 	public static final String BASE = "http://w.hihwei.com/";
 	public static final String LOGIN = BASE + "?/api/account/login_process/";
 	public static final String REGISTER = BASE + "?/api/account/register_process/";

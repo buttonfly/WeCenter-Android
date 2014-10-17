@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.apache.http.Header;
 import org.apache.http.client.CookieStore;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.common.GetUserNamImage;
 import org.iflab.wc.common.TextShow;
 import org.iflab.wc.common.GetUserNamImage.onLoaderListener;
@@ -204,7 +204,7 @@ public class AnswerActivity extends Activity implements OnClickListener {
 	}
 
 	private void dozan(final int value) {
-		String url = WecenterApi.ANSWER_VOTE;
+		String url = WcApis.ANSWER_VOTE;
 		RequestParams params = new RequestParams();
 		params.put("answer_id", answer_id);
 		params.put("value", value);
@@ -273,7 +273,7 @@ public class AnswerActivity extends Activity implements OnClickListener {
 	}
 
 	private void GetAnswer() {
-		String url = WecenterApi.ANSWER_DETAIL + answer_id;
+		String url = WcApis.ANSWER_DETAIL + answer_id;
 		final SimpleDateFormat format = new SimpleDateFormat(
 				"yyyy-MM-dd HH:mm:ss");
 		client.get(url, new AsyncHttpResponseHandler() {

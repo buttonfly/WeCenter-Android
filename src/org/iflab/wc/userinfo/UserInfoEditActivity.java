@@ -7,8 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.iflab.wc.R;
 import org.apache.http.Header;
-import org.iflab.wc.app.WecenterApi;
-import org.iflab.wc.app.WecenterApplication;
+import org.iflab.wc.app.WcApis;
+import org.iflab.wc.app.WcApplication;
 import org.iflab.wc.asking.Bimp;
 import org.iflab.wc.common.AsyncFileUpLoad;
 import org.iflab.wc.common.AsyncImageGet;
@@ -79,9 +79,9 @@ public class UserInfoEditActivity extends Activity implements OnClickListener,
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayUseLogoEnabled(false);
 		actionBar.show();
-		uid = WecenterApplication.getUid();
-		avatar_file = WecenterApi.USER_IMAGE_BASE
-				+ WecenterApplication.getAvatarUrl();
+		uid = WcApplication.getUid();
+		avatar_file = WcApis.USER_IMAGE_BASE
+				+ WcApplication.getAvatarUrl();
 		Log.d("UserInfoEditActivity", "avatarUrl:" + avatar_file);
 		init();
 	}
@@ -91,7 +91,7 @@ public class UserInfoEditActivity extends Activity implements OnClickListener,
 		AsyncHttpClient getUserInfo = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		params.put("uid", uid);
-		getUserInfo.get(WecenterApi.PROFILE, params,
+		getUserInfo.get(WcApis.PROFILE, params,
 				new AsyncHttpResponseHandler() {
 
 					@Override
@@ -199,7 +199,7 @@ public class UserInfoEditActivity extends Activity implements OnClickListener,
 		tv_birthday_info.setOnClickListener(this);
 		tv_business_info.setOnClickListener(this);
 
-		if (WecenterApplication.isNetworkConnected(UserInfoEditActivity.this)) {
+		if (WcApplication.isNetworkConnected(UserInfoEditActivity.this)) {
 			getUserProfile();
 		} else {
 			Toast.makeText(this, "没有网络，请连接后操作！", Toast.LENGTH_SHORT).show();
@@ -309,7 +309,7 @@ public class UserInfoEditActivity extends Activity implements OnClickListener,
 				}
 				if (newAvatarPath != null) {
 					new AsyncFileUpLoad(UserInfoEditActivity.this,
-							WecenterApi.AVATAR_UPLOAD, newAvatarPath,
+							WcApis.AVATAR_UPLOAD, newAvatarPath,
 							new CallBack() {
 								@Override
 								public void callBack(String preview,
@@ -365,7 +365,7 @@ public class UserInfoEditActivity extends Activity implements OnClickListener,
 
 					}
 					new AsyncFileUpLoad(UserInfoEditActivity.this,
-							WecenterApi.AVATAR_UPLOAD, newAvatarPath,
+							WcApis.AVATAR_UPLOAD, newAvatarPath,
 							new CallBack() {
 								@Override
 								public void callBack(String preview,
@@ -466,7 +466,7 @@ public class UserInfoEditActivity extends Activity implements OnClickListener,
 		if (!TextUtils.isEmpty(signature)) {
 			UpParams.put("signature", signature);
 		}
-		upLoadProfile.post(WecenterApi.PROFILE_SETTING, UpParams,
+		upLoadProfile.post(WcApis.PROFILE_SETTING, UpParams,
 				new AsyncHttpResponseHandler() {
 
 					@Override

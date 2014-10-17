@@ -14,7 +14,7 @@ import java.util.List;
 import org.apache.http.Header;
 import org.apache.http.client.CookieStore;
 import org.iflab.wc.R;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.common.MyProgressDialog;
 import org.iflab.wc.detail.question.QuestionDetailActivity;
 import org.iflab.wc.ui.MainActivity;
@@ -293,7 +293,7 @@ public class AskingFragmentActivity extends FragmentActivity {
 
 	public void postpic(RequestParams params, String id, String attach) {
 
-		String url = WecenterApi.POST_PIC + "?id=" + id
+		String url = WcApis.POST_PIC + "?id=" + id
 				+ "&attach_access_key=" + attach;
 		client.post(url, params, new AsyncHttpResponseHandler() {
 			@Override
@@ -343,7 +343,7 @@ public class AskingFragmentActivity extends FragmentActivity {
 	}
 
 	public void quespost(RequestParams params) {
-		String url = WecenterApi.POST_QUESTION;
+		String url = WcApis.POST_QUESTION;
 		client.post(url, params, new AsyncHttpResponseHandler() {
 
 			@Override

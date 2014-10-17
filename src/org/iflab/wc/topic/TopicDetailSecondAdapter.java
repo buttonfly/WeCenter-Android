@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.common.AsyncImageGet;
 import org.iflab.wc.detail.question.AnswerActivity;
 import org.iflab.wc.detail.question.QuestionDetailActivity;
@@ -90,7 +90,7 @@ public class TopicDetailSecondAdapter extends BaseAdapter {
 			answer = m.replaceAll("\n");
 		}
 		viewHolder.essencejianlve.setText(answer);
-		(new AsyncImageGet(WecenterApi.USER_IMAGE_BASE
+		(new AsyncImageGet(WcApis.USER_IMAGE_BASE
 				+ datas.get(position).getAvatar_file(),
 				viewHolder.essence_image)).execute();
 		// System.out.println(Config.getValue("AvatarPrefixUrl")+datas.get(position).getAvatar_file());

@@ -2,7 +2,7 @@ package org.iflab.wc.detail.essay;
 
 import java.util.List;
 
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.detail.question.CommentModel;
 import org.iflab.wc.topic.imageload.ImageDownLoader;
 import org.iflab.wc.R;
@@ -51,7 +51,7 @@ public class EssayCommentAdapter extends BaseAdapter {
 	public View getView(final int arg0, View arg1, ViewGroup arg2) {
 		// TODO Auto-generated method stub
 		ViewHodler hodler;
-		final String mImageUrl = WecenterApi.USER_IMAGE_BASE
+		final String mImageUrl = WcApis.USER_IMAGE_BASE
 				+ comitems.get(arg0).getAvatarfile();
 		if (arg1 == null) {
 			hodler = new ViewHodler();

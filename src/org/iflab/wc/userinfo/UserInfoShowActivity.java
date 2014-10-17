@@ -2,8 +2,8 @@ package org.iflab.wc.userinfo;
 
 import org.apache.http.Header;
 import org.iflab.wc.app.BaseActivity;
-import org.iflab.wc.app.WecenterApi;
-import org.iflab.wc.app.WecenterApplication;
+import org.iflab.wc.app.WcApis;
+import org.iflab.wc.app.WcApplication;
 import org.iflab.wc.common.GlobalVariables;
 import org.iflab.wc.common.TipsToast;
 import org.iflab.wc.follow.FollowActivity;
@@ -78,7 +78,7 @@ public class UserInfoShowActivity extends BaseActivity implements OnClickListene
 		Intent intent = this.getIntent();
 		uid = intent.getIntExtra("uid", 0);
 		initView();
-		if (WecenterApplication.isNetworkConnected(UserInfoShowActivity.this)) {
+		if (WcApplication.isNetworkConnected(UserInfoShowActivity.this)) {
 			getUserInfo();
 		} else {
 			showTips(R.drawable.tips_error, R.string.net_notconnect);
@@ -138,11 +138,11 @@ public class UserInfoShowActivity extends BaseActivity implements OnClickListene
 		ll_logout = (LinearLayout) findViewById(R.id.ll_logout);
 		ll_logout.setOnClickListener(this);
 		Log.i(TAG, "UID:" + uid);
-		if (uid == WecenterApplication.getUid()) {
-			Log.i(TAG, "uid:" + WecenterApplication.getUid());
+		if (uid == WcApplication.getUid()) {
+			Log.i(TAG, "uid:" + WcApplication.getUid());
 			ll_logout.setVisibility(View.VISIBLE);
 		} else {
-			if (WecenterApplication.getUid() == 0) {
+			if (WcApplication.getUid() == 0) {
 				bt_focus.setVisibility(View.INVISIBLE);
 			} else {
 				bt_focus.setVisibility(View.VISIBLE);
@@ -169,7 +169,7 @@ public class UserInfoShowActivity extends BaseActivity implements OnClickListene
 		getUserInfo.setCookieStore(mCookieStore);
 		RequestParams params = new RequestParams();
 		params.put("uid", uid);
-		String url = WecenterApi.USER_INFO;
+		String url = WcApis.USER_INFO;
 		getUserInfo.get(url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -213,7 +213,7 @@ public class UserInfoShowActivity extends BaseActivity implements OnClickListene
 				tv_replys.setText(rsm.getString("answer_count"));
 				tv_asks.setText(rsm.getString("question_count"));
 				if (rsm.getString("avatar_file") != null) {
-					iv_avatar.setImageUrl(WecenterApi.USER_IMAGE_BASE
+					iv_avatar.setImageUrl(WcApis.USER_IMAGE_BASE
 							+ rsm.getString("avatar_file"));
 				}
 				String signature = rsm.getString("signature");
@@ -254,10 +254,10 @@ public class UserInfoShowActivity extends BaseActivity implements OnClickListene
 			SPeditor.remove("userName");
 			SPeditor.remove("password");
 			SPeditor.commit();
-			WecenterApplication.setIsLogined(false);
-			WecenterApplication.setUid(0);
-			WecenterApplication.setAvatarUrl("");
-			WecenterApplication.setUserName("");
+			WcApplication.setIsLogined(false);
+			WcApplication.setUid(0);
+			WcApplication.setAvatarUrl("");
+			WcApplication.setUserName("");
 			PersistentCookieStore cookieStore = new PersistentCookieStore(
 					UserInfoShowActivity.this);
 			cookieStore.clear();
@@ -335,7 +335,7 @@ public class UserInfoShowActivity extends BaseActivity implements OnClickListene
 		asyncHttpClient.setCookieStore(mCookieStore);
 		RequestParams followStatus = new RequestParams();
 		followStatus.put("uid", uid);// 所要取消关注的uid
-		asyncHttpClient.get(WecenterApi.CHANGE_FOLLOW, followStatus,
+		asyncHttpClient.get(WcApis.CHANGE_FOLLOW, followStatus,
 				new AsyncHttpResponseHandler() {
 
 					@Override
@@ -389,7 +389,7 @@ public class UserInfoShowActivity extends BaseActivity implements OnClickListene
 	protected void onResume() {
 		super.onResume();
 
-		if (WecenterApplication.isNetworkConnected(UserInfoShowActivity.this)) {
+		if (WcApplication.isNetworkConnected(UserInfoShowActivity.this)) {
 			getUserInfo();
 		} else {
 			showTips(R.drawable.tips_error, R.string.net_break);
@@ -399,7 +399,7 @@ public class UserInfoShowActivity extends BaseActivity implements OnClickListene
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		if (uid == WecenterApplication.getUid()) {
+		if (uid == WcApplication.getUid()) {
 			getMenuInflater().inflate(R.menu.userinforedit, menu);
 		}
 

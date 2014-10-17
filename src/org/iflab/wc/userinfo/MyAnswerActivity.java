@@ -3,7 +3,7 @@ package org.iflab.wc.userinfo;
 import java.util.ArrayList;
 
 import org.apache.http.Header;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.detail.question.AnswerActivity;
 import org.iflab.wc.topic.BestAnswerModel;
 import org.iflab.wc.topic.TopicDetailSecondAdapter;
@@ -120,7 +120,7 @@ public class MyAnswerActivity extends Activity {
 		params.put("page", String.valueOf(currentPage));
 		params.put("perpage", String.valueOf(perPage));
 		AsyncHttpClient client = new AsyncHttpClient();
-		String url = WecenterApi.MY_ANSWER;
+		String url = WcApis.MY_ANSWER;
 		client.get(url, params, new AsyncHttpResponseHandler() {
 
 			@Override

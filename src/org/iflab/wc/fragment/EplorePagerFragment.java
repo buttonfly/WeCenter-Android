@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.http.Header;
 import org.iflab.wc.adapter.ExploreAdapter;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.asking.FileUtils;
 import org.iflab.wc.detail.essay.EssayDetailActivity;
 import org.iflab.wc.detail.question.QuestionDetailActivity;
@@ -133,7 +133,7 @@ public class EplorePagerFragment extends Fragment {
 				- 1; i++) {
 			String mImageUrl = newlist.get(i).getAvatar_file();
 			if (!mImageUrl.equals("")) {
-				mImageUrl = WecenterApi.IMAGE_BASE_URL + mImageUrl;
+				mImageUrl = WcApis.IMAGE_BASE_URL + mImageUrl;
 				final ImageView mImageView = (ImageView) listView
 						.findViewWithTag(mImageUrl);
 				imageDownLoader.getBitmap(mImageUrl,
@@ -156,7 +156,7 @@ public class EplorePagerFragment extends Fragment {
 			pagrtag = page;
 			RequestParams params = new RequestParams();
 			// String url = Config.getValue("FoundList");
-			String url = WecenterApi.EXPLORE;
+			String url = WcApis.EXPLORE;
 			AsyncHttpClient client = new AsyncHttpClient();
 			params.put("page", page);
 			params.put("sort_type", type);

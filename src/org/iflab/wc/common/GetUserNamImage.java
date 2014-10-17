@@ -1,7 +1,7 @@
 package org.iflab.wc.common;
 
 import org.apache.http.Header;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.topic.imageload.ImageDownLoader;
 import org.iflab.wc.topic.imageload.ImageDownLoader.onImageLoaderListener;
 import org.json.JSONException;
@@ -31,7 +31,7 @@ public class GetUserNamImage {
 
 	public void getuserinfo(String uid, final TextView username,
 			final ImageView userimage, final onLoaderListener listener) {
-		String url = WecenterApi.USER + uid;
+		String url = WcApis.USER + uid;
 		client.get(url, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -52,7 +52,7 @@ public class GetUserNamImage {
 						JSONObject rsm = jsonObject.getJSONObject("rsm");
 						String user_name = rsm.getString("user_name");
 						String avatar_file = rsm.getString("avatar_file");
-						String mImageUrl = WecenterApi.USER_IMAGE_BASE
+						String mImageUrl = WcApis.USER_IMAGE_BASE
 								+ avatar_file;
 						 Bitmap bitmap = downLoader.getCacheBitmap(mImageUrl.replaceAll("[^\\w]", ""));
 							if (bitmap != null) {

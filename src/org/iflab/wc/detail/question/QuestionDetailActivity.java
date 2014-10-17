@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.http.Header;
 import org.apache.http.client.CookieStore;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.common.TextShow;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -129,7 +129,7 @@ public class QuestionDetailActivity extends Activity {
 	}
 
 	private void GetQuestion(String question_id) {
-		String url = WecenterApi.QUESTION_DETAIL + question_id;
+		String url = WcApis.QUESTION_DETAIL + question_id;
 		Log.d(TAG, url);
 		client.get(url, new AsyncHttpResponseHandler() {
 			@Override
@@ -266,7 +266,7 @@ public class QuestionDetailActivity extends Activity {
 	}
 
 	private void Focusorno() {
-		String url = WecenterApi.FOLLOW_QUESTION + question_id;
+		String url = WcApis.FOLLOW_QUESTION + question_id;
 		client.get(url, new AsyncHttpResponseHandler() {
 
 			@Override

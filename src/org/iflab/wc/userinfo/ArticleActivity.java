@@ -2,7 +2,7 @@ package org.iflab.wc.userinfo;
 
 import java.util.ArrayList;
 import org.apache.http.Header;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.common.GlobalVariables;
 import org.iflab.wc.detail.essay.EssayDetailActivity;
 import org.iflab.wc.detail.question.QuestionDetailActivity;
@@ -127,9 +127,9 @@ public class ArticleActivity extends Activity {
 		AsyncHttpClient client = new AsyncHttpClient();
 		String url;
 		if (isArticle == GlobalVariables.ARTICLE) {
-			url = WecenterApi.MY_ACTIVITY;
+			url = WcApis.MY_ACTIVITY;
 		} else {
-			url = WecenterApi.My_ASK;
+			url = WcApis.My_ASK;
 		}
 		client.get(url, params, new AsyncHttpResponseHandler() {
 

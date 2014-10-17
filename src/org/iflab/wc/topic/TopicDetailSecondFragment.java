@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.iflab.wc.R;
 import org.apache.http.Header;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +54,7 @@ public class TopicDetailSecondFragment extends Fragment {
 	}
 
 	public void getData() {
-		String url = WecenterApi.TOPIC_BEST;
+		String url = WcApis.TOPIC_BEST;
 		RequestParams params = new RequestParams();
 		params.put("id", topic_id);
 		AsyncHttpClient client = new AsyncHttpClient();

@@ -2,7 +2,7 @@ package org.iflab.wc.ui;
 
 import org.iflab.wc.R;
 import org.iflab.wc.app.ActivityCollector;
-import org.iflab.wc.app.WecenterApplication;
+import org.iflab.wc.app.WcApplication;
 import org.iflab.wc.asking.AskingFragmentActivity;
 import org.iflab.wc.fragment.ExploreFragment;
 import org.iflab.wc.fragment.FollowFrament;
@@ -79,15 +79,15 @@ public class MainActivity extends FragmentActivity implements
 		hideFragments(transaction);
 		switch (position) {
 		case 0:
-			if (!WecenterApplication.isIsLogined()) {
+			if (!WcApplication.isIsLogined()) {
 				LoginActivity.actionStart(MainActivity.this);
 			} else {
 				UserInfoShowActivity.actionStar(MainActivity.this,
-						WecenterApplication.getUid());
+						WcApplication.getUid());
 			}
 			break;
 		case 1:
-			if (!WecenterApplication.isIsLogined()) {
+			if (!WcApplication.isIsLogined()) {
 				RegisterActivity.actionStart(MainActivity.this);
 			} else {
 				if (homeFragment == null) {

@@ -2,7 +2,7 @@ package org.iflab.wc.topic;
 
 import java.util.List;
 
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.topic.imageload.ImageDownLoader;
 
 import android.content.Context;
@@ -58,7 +58,7 @@ public class TopicFragmenAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHodler viewHodler;
-		final String mImageUrl =WecenterApi.IMAGE_BASE_URL
+		final String mImageUrl =WcApis.IMAGE_BASE_URL
 				+ topicModels.get(position).getImageUrl();
 		if (convertView == null) {
 			viewHodler = new ViewHodler();

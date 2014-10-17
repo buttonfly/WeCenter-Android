@@ -2,7 +2,7 @@ package org.iflab.wc.adapter;
 
 import java.util.List;
 
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.model.FollowModel;
 import org.iflab.wc.R;
 import org.iflab.wc.topic.imageload.ImageDownLoader;
@@ -51,7 +51,7 @@ public class FollowAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHodler viewHodler;
-		final String mImageUrl = WecenterApi.USER_IMAGE_BASE
+		final String mImageUrl = WcApis.USER_IMAGE_BASE
 				+ attentionUserModels.get(position).getUserImageUrl();
 		if (convertView == null) {
 			viewHodler = new ViewHodler();

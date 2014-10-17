@@ -5,8 +5,8 @@ import java.util.List;
 import org.iflab.wc.R;
 import org.apache.http.Header;
 import org.iflab.wc.adapter.HomeAdapter;
-import org.iflab.wc.app.WecenterApi;
-import org.iflab.wc.app.WecenterApplication;
+import org.iflab.wc.app.WcApis;
+import org.iflab.wc.app.WcApplication;
 import org.iflab.wc.model.HomeItemModel;
 import org.iflab.wc.ui.MainActivity;
 import org.json.JSONArray;
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
 				false);
 		tvHomePageLoading = (TextView) fragmentView
 				.findViewById(R.id.tvHomePageLoading);
-		if (WecenterApplication.isNetworkConnected(getActivity())) {
+		if (WcApplication.isNetworkConnected(getActivity())) {
 			getHomePageInfo(mPage, false);// 获取数据
 		} else {
 
@@ -137,11 +137,11 @@ public class HomeFragment extends Fragment {
 
 	private void getHomePageInfo(int page, final boolean wantClearData) {
 		final MainActivity activity = (MainActivity) getActivity();
-		if (WecenterApplication.isNetworkConnected(activity)) {
+		if (WcApplication.isNetworkConnected(activity)) {
 			// 有网络后配置Http请求参数
 			RequestParams params = new RequestParams();
 			params.put("page", page);
-			String url = WecenterApi.HOME;
+			String url = WcApis.HOME;
 			Log.d(TAG, "url:" + url);
 			AsyncHttpClient client = new AsyncHttpClient();
 			PersistentCookieStore mCookieStore = new PersistentCookieStore(
@@ -207,7 +207,7 @@ public class HomeFragment extends Fragment {
 									.getJSONObject("user_info");
 							userUid = userInfoObject.getInt("uid");
 							userName = userInfoObject.getString("user_name");
-							avatarUrl = WecenterApi.USER_IMAGE_BASE
+							avatarUrl = WcApis.USER_IMAGE_BASE
 									+ userInfoObject.getString("avatar_file");
 							// 根据actionCode不同，不同分情况解析剩下的JSON数据
 							switch (actionCode) {

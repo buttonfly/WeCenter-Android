@@ -35,38 +35,37 @@ public class HomeAdapter extends ArrayAdapter<HomeItemModel> {
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final HomeItemModel itemModel = getItem(position);
-		// 优化ListView性能
-		View view;
 		ViewHolder viewHolder;
 		if (convertView == null) {
-			view = LayoutInflater.from(getContext()).inflate(resourceId, null);
+			convertView = LayoutInflater.from(getContext()).inflate(resourceId,
+					null);
 			viewHolder = new ViewHolder();
-			viewHolder.llItemLayout = (LinearLayout) view
+			viewHolder.llItemLayout = (LinearLayout) convertView
 					.findViewById(R.id.llItemLayout);
-			viewHolder.complexLayout = (LinearLayout) view
+			viewHolder.complexLayout = (LinearLayout) convertView
 					.findViewById(R.id.llHomeListItemContent);
 			if (itemModel.getLayoutType() == HomeItemModel.LAYOUT_TYPE_SIMPLE) {
 				viewHolder.complexLayout.setVisibility(View.GONE);
 			} else {
 				viewHolder.complexLayout.setVisibility(View.VISIBLE);
 			}
-			viewHolder.avatar = (FrameLayout) view.findViewById(R.id.flAvatar);
-			viewHolder.avatarImage = (SmartImageView) view
+			viewHolder.avatar = (FrameLayout) convertView
+					.findViewById(R.id.flAvatar);
+			viewHolder.avatarImage = (SmartImageView) convertView
 					.findViewById(R.id.ivHomeListItemAvatar);
-			viewHolder.userName = (TextView) view
+			viewHolder.userName = (TextView) convertView
 					.findViewById(R.id.tvHomeListItemName);
-			viewHolder.action = (TextView) view
+			viewHolder.action = (TextView) convertView
 					.findViewById(R.id.tvHomeListIteAction);
-			viewHolder.itemTitle = (TextView) view
+			viewHolder.itemTitle = (TextView) convertView
 					.findViewById(R.id.tvHomeListItemTitle);
-			viewHolder.bestAnswer = (TextView) view
+			viewHolder.bestAnswer = (TextView) convertView
 					.findViewById(R.id.tvHomeListItemBestAnswer);
-			viewHolder.agreeCount = (TextView) view
+			viewHolder.agreeCount = (TextView) convertView
 					.findViewById(R.id.tvHomeListItemAgreeCount);
-			view.setTag(viewHolder);
+			convertView.setTag(viewHolder);
 		} else {
-			view = convertView;
-			viewHolder = (ViewHolder) view.getTag();
+			viewHolder = (ViewHolder) convertView.getTag();
 			if (itemModel.getLayoutType() == HomeItemModel.LAYOUT_TYPE_SIMPLE) {
 				viewHolder.complexLayout.setVisibility(View.GONE);
 			} else {
@@ -155,7 +154,7 @@ public class HomeAdapter extends ArrayAdapter<HomeItemModel> {
 				context.startActivity(mIntent);
 			}
 		});
-		return view;
+		return convertView;
 	}
 
 	class ViewHolder {

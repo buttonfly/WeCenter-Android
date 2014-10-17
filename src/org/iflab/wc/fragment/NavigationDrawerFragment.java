@@ -5,8 +5,8 @@ import java.util.List;
 import org.iflab.wc.R;
 import org.iflab.wc.adapter.DrawerListAdapter;
 import org.iflab.wc.adapter.DrawerListItem;
-import org.iflab.wc.app.WecenterApi;
-import org.iflab.wc.app.WecenterApplication;
+import org.iflab.wc.app.WcApis;
+import org.iflab.wc.app.WcApplication;
 import org.iflab.wc.image.SmartImageView;
 import android.app.Activity;
 import android.app.ActionBar;
@@ -97,7 +97,7 @@ public class NavigationDrawerFragment extends Fragment {
 	 */
 	private void handleView() {
 		// TODO Auto-generated method stub
-		if (WecenterApplication.isIsLogined()) {
+		if (WcApplication.isIsLogined()) {
 			String[] itemTitle = getResources().getStringArray(
 					R.array.drawer_list_string_logined);
 			int[] itemIconRes = { R.drawable.drawer_home_normal,
@@ -146,9 +146,9 @@ public class NavigationDrawerFragment extends Fragment {
 	 */
 	private void setUserInfo() {
 		// TODO Auto-generated method stub
-		String avatarUrl = WecenterApi.USER_IMAGE_BASE
-				+ WecenterApplication.getAvatarUrl();
-		String userName = WecenterApplication.getUserName();
+		String avatarUrl = WcApis.USER_IMAGE_BASE
+				+ WcApplication.getAvatarUrl();
+		String userName = WcApplication.getUserName();
 		SmartImageView avatar = (SmartImageView) headerView
 				.findViewById(R.id.login_icon);
 		TextView name = (TextView) headerView.findViewById(R.id.name);

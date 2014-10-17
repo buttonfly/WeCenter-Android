@@ -3,7 +3,7 @@ package org.iflab.wc.adapter;
 import java.util.List;
 
 import org.iflab.wc.R;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.image.SmartImageView;
 import org.iflab.wc.model.ExploreItem;
 import org.iflab.wc.topic.imageload.ImageDownLoader;
@@ -40,41 +40,42 @@ public class ExploreAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int arg0) {
+	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return newitems.get(arg0);
+		return newitems.get(position);
 	}
 
 	@Override
-	public long getItemId(int arg0) {
+	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		return arg0;
+		return position;
 	}
 
 	@Override
-	public View getView(final int arg0, View arg1, ViewGroup arg2) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHodler hodler;
-		final String mImageUrl = WecenterApi.USER_IMAGE_BASE
-				+ newitems.get(arg0).getAvatar_file();
-		if (arg1 == null) {
+		final String mImageUrl = WcApis.USER_IMAGE_BASE
+				+ newitems.get(position).getAvatar_file();
+		if (convertView == null) {
 			hodler = new ViewHodler();
-			arg1 = LayoutInflater.from(context).inflate(
+			convertView = LayoutInflater.from(context).inflate(
 					R.layout.found_question, null);
-			hodler.name = (TextView) arg1.findViewById(R.id.username);
-			hodler.question = (TextView) arg1.findViewById(R.id.quescontent);
-			hodler.userimage = (SmartImageView) arg1
+			hodler.name = (TextView) convertView.findViewById(R.id.username);
+			hodler.question = (TextView) convertView
+					.findViewById(R.id.quescontent);
+			hodler.userimage = (SmartImageView) convertView
 					.findViewById(R.id.userAvatar);
-			hodler.tag = (TextView) arg1.findViewById(R.id.tag);
-			arg1.setTag(hodler);
+			hodler.tag = (TextView) convertView.findViewById(R.id.tag);
+			convertView.setTag(hodler);
 
 		} else {
-			hodler = (ViewHodler) arg1.getTag();
+			hodler = (ViewHodler) convertView.getTag();
 		}
 		hodler.userimage.setTag(mImageUrl);
-		hodler.name.setText(newitems.get(arg0).getName());
-		hodler.question.setText(newitems.get(arg0).getQuestion());
-		switch (newitems.get(arg0).getInttag()) {
+		hodler.name.setText(newitems.get(position).getName());
+		hodler.question.setText(newitems.get(position).getQuestion());
+		switch (newitems.get(position).getInttag()) {
 		case 0:
 			hodler.tag.setText("发起了问题");
 			break;
@@ -97,7 +98,7 @@ public class ExploreAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View view) {
 				// TODO Auto-generated method stub
-				String stringUid = newitems.get(arg0).getUid();
+				String stringUid = newitems.get(position).getUid();
 				if (!TextUtils.isEmpty(stringUid)) {
 					UserInfoShowActivity.actionStar(context,
 							Integer.parseInt(stringUid));
@@ -106,7 +107,7 @@ public class ExploreAdapter extends BaseAdapter {
 
 			}
 		});
-		return arg1;
+		return convertView;
 	}
 
 	class ViewHodler {

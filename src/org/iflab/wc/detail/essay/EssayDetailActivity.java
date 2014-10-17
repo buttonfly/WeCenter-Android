@@ -2,7 +2,7 @@ package org.iflab.wc.detail.essay;
 
 import org.apache.http.Header;
 import org.apache.http.client.CookieStore;
-import org.iflab.wc.app.WecenterApi;
+import org.iflab.wc.app.WcApis;
 import org.iflab.wc.common.TextShow;
 import org.iflab.wc.detail.question.TopicAboutActivity;
 import org.iflab.wc.topic.imageload.ImageDownLoader;
@@ -213,7 +213,7 @@ public class EssayDetailActivity extends Activity implements OnClickListener {
 	}
 
 	private void Getinfo() {
-		String url = WecenterApi.ARTICLE
+		String url = WcApis.ARTICLE
 				+ articleid;
 		client.get(url, new AsyncHttpResponseHandler() {
 
@@ -267,7 +267,7 @@ public class EssayDetailActivity extends Activity implements OnClickListener {
 						ImageDownLoader imageDownLoader = new ImageDownLoader(
 								EssayDetailActivity.this);
 						imageDownLoader.getBitmap(
-								WecenterApi.USER_IMAGE_BASE+artinfo.getString("avatar_file"),
+								WcApis.USER_IMAGE_BASE+artinfo.getString("avatar_file"),
 								new onImageLoaderListener() {
 
 									@Override
@@ -294,7 +294,7 @@ public class EssayDetailActivity extends Activity implements OnClickListener {
 	}
 
 	private void dozan(int value,final int id) {
-		String url = WecenterApi.ARTICLE_VOTE;
+		String url = WcApis.ARTICLE_VOTE;
 		RequestParams params = new RequestParams();
 		params.put("type", "article");
 		params.put("item_id", articleid);
